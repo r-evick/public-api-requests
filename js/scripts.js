@@ -6,7 +6,7 @@
 Fetches users from API
 */
 
-fetch('https://randomuser.me/api/?results=12')  //12 users
+fetch('https://randomuser.me/api/?results=12&nat=us')  //12 US users
     .then(response => response.json())  //parse JSON data
     .then(response => response.results)
     .then(showEmployees)
@@ -83,13 +83,36 @@ const modalHTML = `
 `;
 gallery.insertAdjacentHTML('afterend', modalHTML);
 
-}
-
 
 /*
 Event handlers 
 */
 
+//closes modal window when X is clicked
+const closeButton = document.getElementById('modal-close-btn'); 
+const modalContainer = document.querySelector('.modal-container');
 
+closeButton.addEventListener('click', () => {
+    modalContainer.remove();
+})
+
+
+
+}
+
+
+
+
+
+
+//show modal popup when clicked
+gallery.addEventListener('click', (e) => {
+    if (e.target !== gallery) {
+        const card = e.target.closest('.card');
+        const i = card.getAttribute('data-index');
+
+        showModal(i);
+    }
+})
 
 
