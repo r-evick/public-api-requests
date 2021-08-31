@@ -52,4 +52,44 @@ let employees = [];
 Display modal
 */
 
+function showModal(i) {
+    let {
+        picture: {large},
+        name: {first, last},
+        email,
+        cell,
+        location,
+        dob
+    } = employees[i];
+    let day = new Date(dob.date).getDay();
+    let month = new Date(dob.date).getMonth();
+    let year = new Date(dob.date).getFullYear();
+
+const modalHTML = `
+    <div class="modal-container">
+    <div class="modal">
+        <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+        <div class="modal-info-container">
+            <img class="modal-img" src='${large}' alt="profile picture">
+            <h3 id="name" class="modal-name cap">${first} ${last}</h3>
+            <p class="modal-text">${email}</p>
+            <p class="modal-text cap">${location.city}</p>
+            <hr>
+            <p class="modal-text">${cell}</p>
+            <p class="modal-text">${location.street.number} ${location.street.name}, ${location.city}, ${location.state}, ${location.postcode}</p>
+            <p class="modal-text">Birthday: ${month}/${day}/${year}</p>
+        </div>
+    </div>
+`;
+gallery.insertAdjacentHTML('afterend', modalHTML);
+
+}
+
+
+/*
+Event handlers 
+*/
+
+
+
 
