@@ -114,14 +114,32 @@ gallery.addEventListener('click', (e) => {
 Search filter
 */
 
-function search() {
+function search(input) {
+    const filtered = [];
     const searchContainer = document.querySelector('.search-container');
 
-    searchContainer.innerHTML = `
-        <form action="#" method="get">
-            <input type="search" id="search-input" class="search-input" placeholder="Search...">
-            <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
-        </form>
-    `;
+    employees.forEach((employee) => {
+        const fullName = employee.name.first + employee.name.last;
+
+        if (fullName.toUpperCase().includes(input.toUpperCase())) {
+            filtered.push(employee);
+        }
+    });
+    gallery.innerHTML = '';
+    showEmployees(filtered);
 }
-search();
+
+const searchContainer = document.querySelector('.search-container');
+searchContainer.innerHTML = `
+    <form action="#" method="get">
+        <input type="search" id="search-input" class="search-input" placeholder="Search...">
+        <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
+    </form>
+`;
+const form = document.querySelector('form');
+const input = document.getElementById('search-input');
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    search(input.value);
+})
