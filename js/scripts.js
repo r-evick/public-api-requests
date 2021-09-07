@@ -1,5 +1,8 @@
-
-//public api requests
+/*
+Treehouse Techdegree:
+FSJS Project 5 - Public API Requests
+Code by: Ryan Evick
+*/
 
 
 /*
@@ -116,7 +119,6 @@ Search filter
 
 function search(input) {
     const filtered = [];
-    const searchContainer = document.querySelector('.search-container');
 
     employees.forEach((employee) => {
         const fullName = employee.name.first + employee.name.last;
@@ -127,6 +129,10 @@ function search(input) {
     });
     gallery.innerHTML = '';
     showEmployees(filtered);
+    if (filtered.length === 0) {  //error message if no results are found
+        gallery.innerHTML = '<h1>Sorry, there were no results.</h1>';
+    } 
+    
 }
 
 const searchContainer = document.querySelector('.search-container');
@@ -136,10 +142,23 @@ searchContainer.innerHTML = `
         <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
     </form>
 `;
+
+
+//search event handlers
 const form = document.querySelector('form');
 const input = document.getElementById('search-input');
 
 form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    search(input.value);
+})
+
+form.addEventListener('keyup', (e) => {  //keyup for real-time search
+    e.preventDefault();
+    search(input.value);
+})
+   
+form.addEventListener('click', (e) => {  
     e.preventDefault();
     search(input.value);
 })
