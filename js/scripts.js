@@ -1,3 +1,4 @@
+  
 /*
 Treehouse Techdegree:
 FSJS Project 5 - Public API Requests
@@ -82,6 +83,10 @@ const modalHTML = `
             <p class="modal-text">${location.street.number} ${location.street.name}, ${location.city}, ${location.state}, ${location.postcode}</p>
             <p class="modal-text">Birthday: ${month}/${day}/${year}</p>
         </div>
+        <div class="modal-btn-container">
+                    <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
+                    <button type="button" id="modal-next" class="modal-next btn">Next</button>
+        </div>
     </div>
 `;
 gallery.insertAdjacentHTML('afterend', modalHTML);
@@ -98,6 +103,35 @@ const modalContainer = document.querySelector('.modal-container');
 closeButton.addEventListener('click', () => {
     modalContainer.remove();
 })
+
+//modal next button
+const nextButton = document.getElementById('modal-next');
+
+nextButton.addEventListener('click', () => {
+    modalContainer.remove();   
+    if (i >= employees.length -1) {
+        i = 0;
+        showModal(i);
+    } else {
+        i++;
+        showModal(i);
+    }
+})
+
+//modal previous button
+const previousButton = document.getElementById('modal-prev');
+
+previousButton.addEventListener('click', () => {
+    modalContainer.remove();
+    if (i < 1) {
+        i = employees.length - 1
+        showModal(i);
+    } else {
+        i--;
+        showModal(i);
+    }
+})
+
 
 }
 
