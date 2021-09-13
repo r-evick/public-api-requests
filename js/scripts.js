@@ -65,10 +65,11 @@ function showModal(i) {
         location,
         dob
     } = employees[i];
-    let day = new Date(dob.date).getDay();
+    let day = new Date(dob.date).getDay(); 
     let month = new Date(dob.date).getMonth();
     let year = new Date(dob.date).getFullYear();
 
+//template literal    
 const modalHTML = `
     <div class="modal-container">
     <div class="modal">
@@ -151,24 +152,6 @@ gallery.addEventListener('click', (e) => {
 Search filter
 */
 
-function search(input) {
-    const filtered = [];
-
-    employees.forEach((employee) => {
-        const fullName = employee.name.first + employee.name.last;
-
-        if (fullName.toUpperCase().includes(input.toUpperCase())) {
-            filtered.push(employee);
-        }
-    });
-    gallery.innerHTML = '';
-    showEmployees(filtered);
-    if (filtered.length === 0) {  //error message if no results are found
-        gallery.innerHTML = '<h1>Sorry, there were no results.</h1>';
-    } 
-    
-}
-
 const searchContainer = document.querySelector('.search-container');
 searchContainer.innerHTML = `
     <form action="#" method="get">
@@ -177,6 +160,24 @@ searchContainer.innerHTML = `
     </form>
 `;
 
+function search(input) {
+    const filtered = [];
+    
+    employees.forEach((employee) => {
+        const fullName = employee.name.first + employee.name.last;
+
+        if (fullName.toUpperCase().includes(input.toUpperCase())) {
+            filtered.push(employee);
+        } 
+
+        gallery.innerHTML = '';
+        showEmployees(filtered);
+    });
+    
+    if (filtered.length === 0) {  //error message if no results are found
+        gallery.innerHTML = '<h1>Sorry, there were no results.</h1>';
+    }
+}
 
 //search event handlers
 const form = document.querySelector('form');
@@ -196,3 +197,9 @@ form.addEventListener('click', (e) => {
     e.preventDefault();
     search(input.value);
 })
+
+
+//change default background color
+const body = document.getElementsByTagName('body')[0];
+
+body.style.background = 'CornflowerBlue';
