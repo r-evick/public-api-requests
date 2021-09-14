@@ -25,9 +25,9 @@ const gallery = document.querySelector('.gallery');
 let employees = [];
 
     function showEmployees(employeeData) {
-        employees = employeeData;
+        employees = !employees.length ? employeeData : employees; //help from slack Treehouse community, username: Brandon
         let employeeHTML = '';
-        employees.forEach((employee, i) => {  //loop through employees
+        employeeData.forEach((employee, i) => {  //loop through employees
             let image = employee.picture;
             let name = employee.name;
             let email = employee.email;
