@@ -14,29 +14,36 @@ fetch('https://randomuser.me/api/?results=12&nat=us')  //12 US users
     .then(response => response.json())  //parse JSON data
     .then(response => response.results)
     .then(showEmployees)
-    .catch(error => console.log('Sorry, there was a problem.', error))  //logs errors to console
-
+    .catch(error => (gallery.innerHTML += `<h3>There was an error fetching the data.</h3>`, error))  //displays fetch error to the user instead of to console
 
 /*
 Display users on the UI
 */
 
+//don't have a way of associating an employee's array index specifically with that employee
+
 const gallery = document.querySelector('.gallery');    
 let employees = [];
 
     function showEmployees(employeeData) {
-        employees = !employees.length ? employeeData : employees; //help from slack Treehouse community, username: Brandon
+        // employees = !employees.length ? employeeData : employees; //help from slack Treehouse community, username: Brandon
+        if (!employees.length) {
+            employees = employeeData;
+        } else {
+            //employees = employees;
+        }
         let employeeHTML = '';
+
         employeeData.forEach((employee, i) => {  //loop through employees
             let image = employee.picture;
             let name = employee.name;
             let email = employee.email;
             let city = employee.location.city;
-            let state = employee.location.state;
+            let state = employee.location.state; 
             
-            //template literal
+            //template literal (added data- attribute containing the index)
             employeeHTML += `
-                <div class="card" data-index='${i}'>
+                <div class="card" data-index='${i}'>  
                     <div class="card-img-container">
                         <img class="card-img" src='${image.large}' alt="profile picture">
                     </div>
@@ -133,7 +140,6 @@ previousButton.addEventListener('click', () => {
     }
 })
 
-
 }
 
 
@@ -145,7 +151,7 @@ gallery.addEventListener('click', (e) => {
 
         showModal(i);
     }
-})
+});
 
 
 /*
@@ -160,6 +166,7 @@ searchContainer.innerHTML = `
     </form>
 `;
 
+ 
 function search(input) {
     const filtered = [];
     
@@ -172,12 +179,14 @@ function search(input) {
 
         gallery.innerHTML = '';
         showEmployees(filtered);
+        
     });
     
     if (filtered.length === 0) {  //error message if no results are found
         gallery.innerHTML = '<h1>Sorry, there were no results.</h1>';
     }
 }
+
 
 //search event handlers
 const form = document.querySelector('form');
@@ -193,13 +202,7 @@ form.addEventListener('keyup', (e) => {  //keyup for real-time search
     search(input.value);
 })
    
-form.addEventListener('click', (e) => {  
-    e.preventDefault();
-    search(input.value);
-})
-
 
 //change default background color
-const body = document.getElementsByTagName('body')[0];
 
-body.style.background = 'CornflowerBlue';
+document.body.style.background = 'CornflowerBlue';  //suggestion from reviewer instead of getting elememnt by tag name
