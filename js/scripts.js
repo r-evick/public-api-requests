@@ -32,6 +32,7 @@ let employees = [];
         } else {
             //employees = employees;
         }
+    
         let employeeHTML = '';
 
         employeeData.forEach((employee, i) => {  //loop through employees
